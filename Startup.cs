@@ -1,6 +1,8 @@
 using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http;
 
 namespace aspnetcoreapp
@@ -9,10 +11,12 @@ namespace aspnetcoreapp
     {
         public void Configure(IApplicationBuilder app)
         {
-            app.Run(context =>
-            {
-                return context.Response.WriteAsync("Hello from ASP.NET Core!");
-            });
+            app.UseMvc();
+        }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+          services.AddMvc();
         }
     }
 }
