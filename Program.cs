@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Microsoft.AspNetCore.Hosting;
 
 namespace aspnetcoreapp
@@ -8,7 +9,8 @@ namespace aspnetcoreapp
         public static void Main(string[] args)
         {
             var host = new WebHostBuilder()
-                .UseKestrel()
+                .UseKestrel()                                                   //Kestrel is like some ASP IIS
+                .UseContentRoot(Directory.GetCurrentDirectory())                //Looks like some context
                 .UseStartup<Startup>()
                 .Build();
 

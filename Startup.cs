@@ -12,9 +12,10 @@ namespace aspnetcoreapp
 {
     public class Startup
     {
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
             //TODO: Logging
+            loggerFactory.AddConsole(LogLevel.Warning, true);
 
             //TODO: Error Handler
 
