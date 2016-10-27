@@ -29,6 +29,7 @@ namespace AirBook
 
             app.UseMvc(routes =>
             {
+                //Note: This ROUTE requires every request contains a version as a parameter 
                 routes.MapRoute("default", "{version?}/{controller=Home}/{action=Index}/{id?}");
             });
 

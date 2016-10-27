@@ -10,10 +10,11 @@ namespace AirBook.Controllers
         }
 
         [HttpGet]
-        public IActionResult test(string version){
+        public IActionResult test(string version, string para){
             var obj = new Dictionary<string,string>();
             obj.Add("key","value");
             obj.Add("version",version);
+            obj.Add("para",para);
             return new ObjectResult(obj);
         }
     }
