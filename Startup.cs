@@ -57,7 +57,7 @@ namespace AirBook
             services.AddOptions();
             services.Configure<TestOptions>(testOptions => 
             {
-                testOptions.Option1 = Configuration["testy"];
+                testOptions.Option1 = Configuration["Versions:CurrentVersion"];
             });
             //In tutorial, we can just Use
             //services.Configure<MyOptions>(Configuration);
