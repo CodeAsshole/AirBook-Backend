@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
 using AirBook.Options;
+using AirBook.Models;
 using System;
 
 namespace AirBook.Controllers
@@ -11,18 +12,20 @@ namespace AirBook.Controllers
     public class TestController : Controller
     {
         public readonly IOptions<TestOptions> _optionAccessor;
-        public TestController(IOptions<TestOptions> optionsAccessor){
-            _optionAccessor = optionsAccessor;
+        private readonly TestContext _context;
+        public TestController(TestContext context){
+            _context = context;
         }
 
         [HttpGet]
         public IActionResult test(string version){
-            throw new Exception("Exception triggered!");
-            var obj = new Dictionary<string,string>();
-            obj.Add("key","value");
-            obj.Add("version",version);
-            obj.Add("para", _optionAccessor.Value.Option1);
-            return new ObjectResult(obj);
+
+            var one = new TestModel();
+            one.Name = "Tracy2";
+            _context.test.Add(one);
+            _context.SaveChanges();
+
+            return new ObjectResult(one);
         }
     }
 }

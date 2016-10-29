@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 
 using AirBook.Options;
+using AirBook.Models;
+using MySQL.Data.EntityFrameworkCore.Extensions;
 
 namespace AirBook
 {
@@ -59,6 +61,7 @@ namespace AirBook
             {
                 testOptions.Option1 = Configuration["Versions:CurrentVersion"];
             });
+            services.AddDbContext<TestContext>(options => options.UseMySQL(Configuration["ConnectionStrings:TestDatabase"]));
             //In tutorial, we can just Use
             //services.Configure<MyOptions>(Configuration);
             //But failed when I use like this
