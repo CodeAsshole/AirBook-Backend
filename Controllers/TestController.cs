@@ -1,20 +1,25 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+
+using AirBook.Options;
 
 namespace AirBook.Controllers
 {
     public class TestController : Controller
     {
-        public TestController(){
-
+        public readonly IOptions<TestOptions> _optionAccessor;
+        public TestController(IOptions<TestOptions> optionsAccessor){
+            _optionAccessor = optionsAccessor;
         }
 
         [HttpGet]
-        public IActionResult test(string version, string para){
+        public IActionResult test(string version){
             var obj = new Dictionary<string,string>();
             obj.Add("key","value");
             obj.Add("version",version);
-            obj.Add("para",para);
+            obj.Add("para", _optionAccessor.Value.Option1);
             return new ObjectResult(obj);
         }
     }

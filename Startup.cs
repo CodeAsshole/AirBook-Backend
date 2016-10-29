@@ -3,11 +3,25 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Configuration;
+
+using AirBook.Options;
 
 namespace AirBook
 {
     public class Startup
     {
+        public IConfigurationRoot Configuration;
+        public Startup(IHostingEnvironment env){
+            //Init Configuration
+            //The builder can AddJsonFile AddCommandLine AddInMemoryCollection and so on
+            var builder = new ConfigurationBuilder();
+            builder.SetBasePath(env.ContentRootPath);
+            builder.AddJsonFile("appsettings.json");
+            Configuration = builder.Build();
+        }
+
         public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory, IHostingEnvironment env)
         {
             //TODO: Logging
@@ -20,7 +34,8 @@ namespace AirBook
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
+                app.UseStatusCodePages();
             }
 
             app.UseStaticFiles();
@@ -39,6 +54,14 @@ namespace AirBook
         {
             services.AddRouting();
             services.AddMvc();
+            services.AddOptions();
+            services.Configure<TestOptions>(testOptions => 
+            {
+                testOptions.Option1 = Configuration["testy"];
+            });
+            //In tutorial, we can just Use
+            //services.Configure<MyOptions>(Configuration);
+            //But failed when I use like this
         }
     }
 }
