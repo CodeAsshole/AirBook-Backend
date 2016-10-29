@@ -34,7 +34,7 @@ namespace AirBook
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/"+Configuration["Versions:CurrentVersion"]+"/Error/Index");
                 app.UseStatusCodePages();
             }
 

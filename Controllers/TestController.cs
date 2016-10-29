@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
 using AirBook.Options;
+using System;
 
 namespace AirBook.Controllers
 {
@@ -16,6 +17,7 @@ namespace AirBook.Controllers
 
         [HttpGet]
         public IActionResult test(string version){
+            throw new Exception("Exception triggered!");
             var obj = new Dictionary<string,string>();
             obj.Add("key","value");
             obj.Add("version",version);
